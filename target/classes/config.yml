@@ -1,0 +1,29 @@
+HelpMessage:
+  - "BLOCK BREAK RERARD: "
+  - "/blockbreakreward reload - reload the config"
+  - "permission: blockbreakreward.reload"
+ReloadMessage: "Block Break Reward is reloaded, have fun"
+
+# Example:
+
+# Rewards:
+#   Reward1: //this name must different from others
+#     permission: custompermission.abcxd //this permission must be different from others
+#     blockNeedToMine: 0 - 2147483647
+#     commands:
+#     - "give {player} 1000"  ! don't put / in the command
+#     randomCommand: false - true //Run all commands if false - Random and get 1 command if true
+
+Rewards:
+  Reward1:
+    permission: blockbreakreward.default
+    blockNeedToMine: 1000
+    commands:
+      - "give %player_name% 500"
+    randomCommand: false
+  Reward2:
+    permission: blockbreakreward.hello
+    blockNeedToMine: 20
+    commands:
+      - "op %player_name%"
+    randomCommand: false
