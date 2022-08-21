@@ -2,8 +2,14 @@ name: blockbreakreward
 main: com.blockbreakreward.Plugin
 version: 0.1
 api-version: 1.15
+author: TrongThang
+permissions:
+  blockbreakreward.reload:
+    description: reload the plugin
+    default: false
+  blockbreakreward.help:
+    description: shows help of the plugin
+    default: false
 commands:
   blockbreakreward:
     description: a block break reward command
-    allias:
-      - bbr

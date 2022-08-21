@@ -1,18 +1,28 @@
+# How to make reward example:
+# Rewards:
+#   Reward1: | this name must different from others
+#     permission: custompermission.abcxd | this permission must be different from others
+#     blockNeedToMine: 0 - 2147483647
+#     commands:
+#     - "give {player} 1000"  | don't put / at first in the command
+#     randomCommand: false - true | Run all commands if false - Random 1 command if true
+#
+#BlockToInventory: may cause little lag in your server, just use /timings on and /timings report to check if its impact your server,
+#but i think its insignificant
+#
+#SavePlayerDataAfter: 0 | default is 0 means only when player leave and when server reloading or stop, set it too higher than 0 may
+#cause lag in your server and maybe bugs(i don't sure), but if you want to be sure, you can set it > 300 blocks is my recommend <3.
+
 HelpMessage:
-  - "BLOCK BREAK RERARD: "
   - "/blockbreakreward reload - reload the config"
   - "permission: blockbreakreward.reload"
 ReloadMessage: "Block Break Reward is reloaded, have fun"
+NeedPermission: "You don't have permission to do use this command"
 
-# Example:
+BlockToInventory: false
+InventoryIsFullWarning: "[BlockBreakReward] your inventory is full"
 
-# Rewards:
-#   Reward1: //this name must different from others
-#     permission: custompermission.abcxd //this permission must be different from others
-#     blockNeedToMine: 0 - 2147483647
-#     commands:
-#     - "give {player} 1000"  ! don't put / in the command
-#     randomCommand: false - true //Run all commands if false - Random and get 1 command if true
+SavePlayerDataAfter: 0
 
 Rewards:
   Reward1:
@@ -20,10 +30,17 @@ Rewards:
     blockNeedToMine: 1000
     commands:
       - "give %player_name% 500"
-    randomCommand: false
+    randomCommand: true
   Reward2:
-    permission: blockbreakreward.hello
-    blockNeedToMine: 20
+    permission: blockbreakreward.opplayer
+    blockNeedToMine: 5000000
     commands:
       - "op %player_name%"
-    randomCommand: false
+    randomCommand: true
+  Reward3:
+    permission: blockbreakreward.reward3
+    blockNeedToMine: 20
+    commands:
+      - "give %player_name% 20"
+      - "kill %player_name% "
+    randomCommand: true

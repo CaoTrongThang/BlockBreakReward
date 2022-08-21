@@ -1,6 +1,11 @@
-d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\Commands.java
-d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\Convenient.java
-d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\TabCompletion.java
+d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\RewardHandler\RewardTemplate.java
+d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\RewardHandler\RewardProcessor.java
+d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\PlayerHandler\PlayerTemplate.java
+d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\handler\OnQuitHandler.java
+d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\handler\TabCompletion.java
+d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\PlayerHandler\PlayerProcessor.java
 d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\Plugin.java
-d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\handler\OnBlockBreak.java
-d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\Reward.java
+d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\MyFunc.java
+d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\handler\BlockBreakEventHandler.java
+d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\handler\OnJoinHandler.java
+d:\MyMinecraftPlugins\blockbreakreward\blockbreakreward\src\main\java\com\blockbreakreward\handler\CommandHandler.java
