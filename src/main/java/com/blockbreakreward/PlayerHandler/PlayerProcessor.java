@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.yaml.snakeyaml.Yaml;
 
 import com.blockbreakreward.MyFunc;
 import com.blockbreakreward.Plugin;
@@ -54,16 +52,10 @@ public class PlayerProcessor {
 
     public static void AddToList(YamlConfiguration yaml, File file, Player p) {
         Plugin.plugin.players.add(
-                new PlayerTemplate(p, MyFunc.RemoveFileNameExtension(file.getName()), yaml.getString("playerName"),
+                new PlayerTemplate(0, p, MyFunc.RemoveFileNameExtension(file.getName()), yaml.getString("playerName"),
                         yaml.getInt("minedBlocks"), yaml.getInt("minedDiamonds"), yaml.getInt("minedEmeralds"),
                         yaml.getInt("minedGolds"), yaml.getInt("minedIrons"), yaml.getInt("minedCoals")));
 
-    }
-
-    public static void AddNewPlayerToList(Player e) {
-        Plugin.plugin.players.add(
-                new PlayerTemplate(e.getPlayer(), e.getPlayer().getUniqueId().toString(), e.getPlayer().getName(),
-                        0, 0, 0, 0, 0, 0));
     }
 
     public static List<String> DefaultPlayerValueList() {
@@ -103,7 +95,7 @@ public class PlayerProcessor {
         return false;
     }
 
-    public static boolean CreatePlayerFileAndSetValue(PlayerTemplate pt) {
+    public static boolean CreatePlayerFileAndSetValue(PlayerTemplate pt, int ptPos) {
         File newPlayerFile = new File("plugins/blockbreakreward/PlayerData/" + pt.p.getUniqueId().toString() + ".yml");
         try {
             newPlayerFile.createNewFile();
@@ -114,13 +106,13 @@ public class PlayerProcessor {
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(newPlayerFile);
 
         yaml.set("playerName", pt.p.getName());
-        yaml.set("minedBlocks", pt.minedBlocks);
+        yaml.set("minedBlocks", pt.minedAfterJoin + pt.minedBlocks);
         yaml.set("minedDiamonds", pt.minedDiamonds);
         yaml.set("minedEmeralds", pt.minedEmeralds);
         yaml.set("minedGolds", pt.minedGolds);
         yaml.set("minedIrons", pt.minedIrons);
         yaml.set("minedCoals", pt.minedCoals);
-
+        Plugin.plugin.players.get(ptPos).minedAfterJoin = 0;
         try {
             yaml.save(newPlayerFile);
         } catch (IOException df) {

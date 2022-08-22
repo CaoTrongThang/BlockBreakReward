@@ -1,5 +1,6 @@
 package com.blockbreakreward.handler;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -34,6 +35,7 @@ public class CommandHandler implements CommandExecutor {
                     if (p.hasPermission("blockbreakreward.reload")) {
                         plugin.saveDefaultConfig();
                         plugin.reloadConfig();
+                        MyFunc.SetDefaultConfigValue();
                         PlayerProcessor.SavePlayerDataToList();
                         RewardProcessor.SaveRewardsList(plugin);
                         MyFunc.PrintStringTo(sender, plugin.getConfig().getString("ReloadMessage"),
@@ -46,6 +48,7 @@ public class CommandHandler implements CommandExecutor {
 
                     plugin.saveDefaultConfig();
                     plugin.reloadConfig();
+                    MyFunc.SetDefaultConfigValue();
                     PlayerProcessor.SavePlayerDataToList();
                     RewardProcessor.SaveRewardsList(plugin);
                     MyFunc.PrintStringTo(sender, plugin.getConfig().getString("ReloadMessage"),
@@ -53,6 +56,7 @@ public class CommandHandler implements CommandExecutor {
                 }
 
             }
+
         }
         return false;
     }

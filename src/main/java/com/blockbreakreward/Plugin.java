@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
-import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -28,14 +27,15 @@ import net.md_5.bungee.api.ChatColor;
 public class Plugin extends JavaPlugin {
   public static final Logger LOGGER = Logger.getLogger("BlockBreakReward");
 
-  public List<RewardTemplate> rewards;
-  public List<PlayerTemplate> players;
+  public static List<RewardTemplate> rewards;
+  public static List<PlayerTemplate> players;
   public static String playerDataPath = "plugins/blockbreakreward/PlayerData";
   public static File[] playerDataFileList;
   public static Plugin plugin;
 
   @Override
   public void onEnable() {
+    MetricsLite metrics = new MetricsLite(this, 16216);
     PluginDescriptionFile pdf = this.getDescription();
     plugin = this;
     rewards = new ArrayList<>();
@@ -52,16 +52,17 @@ public class Plugin extends JavaPlugin {
       return;
     }
     new CommandHandler(this);
-    LOGGER.info(ChatColor.WHITE + "Commands are registered");
+    LOGGER.info("Commands are registered");
     new BlockBreakEventHandler(this);
-    LOGGER.info(ChatColor.WHITE + "BlockBreakEvent is registered");
+    LOGGER.info("BlockBreakEvent is registered");
     new OnQuitHandler(this);
-    LOGGER.info(ChatColor.WHITE + "Player Quit Event is registered");
+    LOGGER.info("Player Quit Event is registered");
     new OnJoinHandler(this);
-    LOGGER.info(ChatColor.WHITE + "Player Join Event is registered");
+    LOGGER.info("Player Join Event is registered");
     new TabCompletion(this);
-    LOGGER.info(ChatColor.WHITE + "Tab Completion is registered");
+    LOGGER.info("Tab Completion is registered");
 
+    MyFunc.SetDefaultConfigValue();
     LOGGER.info(ChatColor.YELLOW + "Block Break Reward is on");
 
     LOGGER.info(ChatColor.WHITE + "+-----------------------------+");
@@ -69,20 +70,21 @@ public class Plugin extends JavaPlugin {
     LOGGER.info(ChatColor.WHITE + "       Version v" + ChatColor.RED + "" + pdf.getVersion());
     LOGGER.info(ChatColor.WHITE + " Plugin by " + ChatColor.GREEN + "" + pdf.getAuthors());
     LOGGER.info(ChatColor.WHITE + "+-----------------------------+");
+
   }
 
   @Override
   public void onDisable() {
+    MyFunc.SetDefaultConfigValue();
     try {
-      for (PlayerTemplate p : players) {
-        if (p.p != null) {
-          PlayerProcessor.CreatePlayerFileAndSetValue(p);
+      for (int x = 0; x < players.size(); x++) {
+        if (players.get(x).p != null & players.get(x).minedAfterJoin > 0) {
+          PlayerProcessor.CreatePlayerFileAndSetValue(players.get(x), x);
         }
       }
     } catch (Exception exception) {
       LOGGER.info(ChatColor.RED + "All players data can't be saved");
     }
-
     LOGGER.info(ChatColor.RED + "Block Break Reward is off");
   }
 

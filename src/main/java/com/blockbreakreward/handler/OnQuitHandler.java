@@ -20,10 +20,13 @@ public class OnQuitHandler implements Listener {
 
     @EventHandler
     public void OnPlayerQuitHandler(PlayerQuitEvent e) {
+
         for (int i = 0; i < plugin.players.size(); i++) {
             if (plugin.players.get(i).p != null) {
                 if (e.getPlayer().getUniqueId().equals(plugin.players.get(i).p.getUniqueId())) {
-                    PlayerProcessor.CreatePlayerFileAndSetValue(plugin.players.get(i));
+                    if (plugin.players.get(i).minedAfterJoin > 0) {
+                        PlayerProcessor.CreatePlayerFileAndSetValue(plugin.players.get(i), i);
+                    }
                 }
             }
         }

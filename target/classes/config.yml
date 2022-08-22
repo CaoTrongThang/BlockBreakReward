@@ -1,46 +1,68 @@
-# How to make reward example:
-# Rewards:
-#   Reward1: | this name must different from others
-#     permission: custompermission.abcxd | this permission must be different from others
-#     blockNeedToMine: 0 - 2147483647
-#     commands:
-#     - "give {player} 1000"  | don't put / at first in the command
-#     randomCommand: false - true | Run all commands if false - Random 1 command if true
+#!Every reward name must be unique
 #
-#BlockToInventory: may cause little lag in your server, just use /timings on and /timings report to check if its impact your server,
-#but i think its insignificant
+#BlockToInventory: false | do you want the mined blocks drop straight to inventory?, set to true if you do, it might affect your
+#server performance but not much.
 #
-#SavePlayerDataAfter: 0 | default is 0 means only when player leave and when server reloading or stop, set it too higher than 0 may
-#cause lag in your server and maybe bugs(i don't sure), but if you want to be sure, you can set it > 300 blocks is my recommend <3.
+#[Shoudn't touch this]SavePlayerDataAfter: 0  | 0 means only save playerData when they leave or when you stop the server, if you wanna change it then
+#its better to set it more than 500, this will affect your server performance a lot if you set to small number.
+#
+#SpecificTools:
+#  - all [everything uses to mining blocks is accept]
+# remove all if you wanna add specific tool, you can add specific name like IRON_PICKAXE, GOLD_PICKAXE, or just PICKAXE for all type
+# of pickaxe
+#
+#ExceptBlocks:
+#  - none [everything block is accept]
+# you might wanna take a look at this to set a properly block value https://minecraft.fandom.com/wiki/Tag#Blocks
+#
+#Rewards:
+#randomCommand: true |  if you have more than 1 command, you can random and get 1, or you can set it to false and it'll give
+#the player all the commands
+#
+#Available PlaceHolders:
+#  - %player_name% | get player's name
+#  - %mined_after_join% | get the total blocks player have mined after join the server
+#  - %mined_blocks% | get player's total mined blocks
+#  - %mined_diamonds% | get player's total mined diamonds blocks
+#  - %mined_emeralds% | get player's total mined emeradls blocks
+#  - %mined_golds%" | get player's total mined golds blocks
+#  - %mined_irons% | get player's total mined irons blocks
+#  - %mined_coals% | get player's total mined coals blocks
 
 HelpMessage:
-  - "/blockbreakreward reload - reload the config"
-  - "permission: blockbreakreward.reload"
+  - "/blockbreakreward reload | to reload the plugin"
+  - "/blockbreakreward help | show helps"
 ReloadMessage: "Block Break Reward is reloaded, have fun"
 NeedPermission: "You don't have permission to do use this command"
-
-BlockToInventory: false
 InventoryIsFullWarning: "[BlockBreakReward] your inventory is full"
 
-SavePlayerDataAfter: 0
+EnableFullInventoryWarning: false
+BlockToInventory: false
 
+SavePlayerDataAfter: 0
+ExceptBlocks:
+  - none
+SpecificTools:
+  - all
 Rewards:
   Reward1:
     permission: blockbreakreward.default
     blockNeedToMine: 1000
     commands:
       - "give %player_name% 500"
-    randomCommand: true
+    randomCommand: false
   Reward2:
     permission: blockbreakreward.opplayer
     blockNeedToMine: 5000000
     commands:
       - "op %player_name%"
-    randomCommand: true
+      - "eco give %player_name% 500"
+      - "ban %player_name% mining too much blocks %mined_blocks%"
+    randomCommand: false
   Reward3:
     permission: blockbreakreward.reward3
     blockNeedToMine: 20
     commands:
       - "give %player_name% 20"
-      - "kill %player_name% "
+      - "kill %player_name%"
     randomCommand: true
