@@ -1,15 +1,21 @@
 name: blockbreakreward
 main: com.blockbreakreward.Plugin
-version: 0.5
-api-version: 1.16
+version: 2.1
+api-version: 1.13
 author: TrongThang
 permissions:
   blockbreakreward.reload:
     description: reload the plugin
-    default: false
+    default: op
   blockbreakreward.help:
     description: shows help of the plugin
-    default: false
+    default: true
+  blockbreakreward.yamltomysqldatabase:
+    description: transfer yaml files to mysql database
+    default: op
+  blockbreakreward.leaderboard:
+    description: show leaderboard
+    default: op
 commands:
   blockbreakreward:
     description: a block break reward command

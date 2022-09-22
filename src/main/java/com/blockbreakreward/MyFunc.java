@@ -8,6 +8,7 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
 
 import com.blockbreakreward.PlayerHandler.PlayerTemplate;
 import com.blockbreakreward.RewardHandler.RewardTemplate;
@@ -65,26 +66,6 @@ public class MyFunc {
         return str;
     }
 
-    public static void PrintPlayersList(String sentence) {
-        System.out.println("PLAYER LIST " + sentence);
-        for (PlayerTemplate p : Plugin.plugin.players) {
-            System.out.println("player Enity" + p.p);
-            System.out.println("playerName: " + p.playerName);
-            System.out.println("playerUUID: " + p.playerUUID);
-            System.out.println("minedBlocks: " + p.minedBlocks);
-        }
-    }
-
-    public static void PrintRewardList(String sentence) {
-        System.out.println("REWARD LIST  " + sentence);
-        for (RewardTemplate rw : Plugin.plugin.rewards) {
-            System.out.println("permisison " + rw.permission);
-            System.out.println("blockNeedToMine: " + rw.blockNeedToMine);
-            System.out.println("commands: " + rw.commands);
-            System.out.println("randomCommand: " + rw.randomCommand);
-        }
-    }
-
     public static void PrintListTo(CommandSender sender, List<String> msg, boolean isPlayer) {
         if (isPlayer) {
             Player p = (Player) sender;
@@ -105,7 +86,6 @@ public class MyFunc {
 
         } else {
             Plugin.plugin.LOGGER.info(ChatColor.YELLOW + msg);
-
         }
     }
 
@@ -113,17 +93,28 @@ public class MyFunc {
         File file = new File("plugins/blockbreakreward/config.yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         List<String> configValue = new ArrayList<>();
+        configValue.add("MySQL.enableMySQL");
+        configValue.add("MySQL.username");
+        configValue.add("MySQL.password");
+        configValue.add("MySQL.port");
+        configValue.add("MySQL.databaseName");
+
         configValue.add("HelpMessage");
         configValue.add("ReloadMessage");
         configValue.add("NeedPermission");
-        configValue.add("InventoryIsFullWarning");
+        configValue.add("InventoryFullWarning");
         configValue.add("EnableFullInventoryWarning");
+        configValue.add("BlockToInventory");
+
+        configValue.add("ProgressActionBar");
+        configValue.add("ActionBarTemplate");
+        configValue.add("ProgressReachSound");
 
         configValue.add("SavePlayerDataAfter");
-        configValue.add("BlockToInventory");
         configValue.add("SpecificTools");
         configValue.add("ExceptBlocks");
 
+        configValue.add("Rewards");
         List<String> defaultHelpMessage = new ArrayList<>();
         defaultHelpMessage.add("/blockbreakreward reload | to reload the plugin");
 
@@ -132,9 +123,18 @@ public class MyFunc {
         List<String> defaultExceptBlocks = new ArrayList<>();
         defaultExceptBlocks.add("none");
         for (String str : configValue) {
-            System.out.println(!yaml.contains(str));
             if (!yaml.contains(str)) {
                 switch (str) {
+                    case "MySQL.enableMySQL":
+                        yaml.set("MySQL.enableMySQL", false);
+                    case "MySQL.username":
+                        yaml.set("MySQL.username", "root");
+                    case "MySQL.password":
+                        yaml.set("MySQL.password", "");
+                    case "MySQL.port":
+                        yaml.set("MySQL.port", 3306);
+                    case "MySQL.databaseName":
+                        yaml.set("MySQL.databaseName", "");
                     case "HelpMessage":
                         yaml.set("HelpMessage", defaultHelpMessage);
                     case "ReloadMessage":
@@ -145,6 +145,13 @@ public class MyFunc {
                         yaml.set("InventoryFullWarning", "[BlockBreakEvent] Your inventory is full");
                     case "EnableFullInventoryWarning":
                         yaml.set("EnableFullInventoryWarning", false);
+                    case "ProgressIncreaseSound":
+                        yaml.set("ProgressReachSound", "none");
+                    case "ActionBarTemplate":
+                        yaml.set("ActionBarTemplate",
+                                "%block_just_mined% | TOTAL: %mined_blocks% | PROGRESS: %progression_state%%");
+                    case "ProgressActionBar":
+                        yaml.set("ProgressActionBar", true);
                     case "SavePlayerDataAfter":
                         yaml.set("SavePlayerDataAfter", 0);
                     case "BlockToInventory":
@@ -153,10 +160,10 @@ public class MyFunc {
                         yaml.set("SpecificTools", defaultSpecificTools);
                     case "ExceptBlocks":
                         yaml.set("ExceptBlocks", defaultExceptBlocks);
-
                 }
             }
         }
+        RewardsInitialize(yaml, file);
         if (yaml.getStringList("SpecificTools").size() == 0) {
             yaml.set("SpecificTools", defaultSpecificTools);
         } else if (yaml.getStringList("ExceptBlocks").size() == 0) {
@@ -169,15 +176,72 @@ public class MyFunc {
         }
     }
 
-    public static String ReplacePlaceHolder(Player p, String cmd, PlayerTemplate pt) {
-        cmd.replace("%player_name%", p.getName());
-        cmd.replace("%mined_blocks%", Integer.toString(pt.minedBlocks));
-        cmd.replace("%mined_diamonds%", Integer.toString(pt.minedDiamonds));
-        cmd.replace("%mined_emeralds%", Integer.toString(pt.minedBlocks));
-        cmd.replace("%mined_golds%", Integer.toString(pt.minedBlocks));
-        cmd.replace("%mined_irons%", Integer.toString(pt.minedBlocks));
-        cmd.replace("%mined_coals%", Integer.toString(pt.minedBlocks));
-        cmd.replace("%mined_after_join%", Integer.toString(pt.minedBlocks));
-        return cmd;
+    public static void RewardsInitialize(YamlConfiguration yaml, File file) {
+        List<String> cmds = new ArrayList<>();
+        cmds.add("eco give %player_name% 500");
+        cmds.add("give %player% iron_ingot");
+        if (!yaml.contains("Rewards")) {
+            yaml.set("Rewards.Reward1.permission", "blockbreakreward.default");
+            yaml.set("Rewards.Reward1.blockNeedToMined", 1000);
+            yaml.set("Rewards.Reward1.randomCommand", true);
+            yaml.set("Rewards.Reward1.commands", cmds);
+        }
+        if (Plugin.plugin.getConfig().getConfigurationSection("Rewards").getKeys(false) == null) {
+            if (!yaml.contains("Rewards")) {
+                yaml.set("Rewards.Reward1.permission", "blockbreakreward.default");
+                yaml.set("Rewards.Reward1.blockNeedToMined", 1000);
+                yaml.set("Rewards.Reward1.randomCommand", true);
+                yaml.set("Rewards.Reward1.commands", cmds);
+            }
+        }
+
+        try {
+            yaml.save(file);
+        } catch (IOException e) {
+            Plugin.LOGGER.info(ChatColor.RED + "New config.yml element can't be saved");
+        }
+    }
+
+    public static String ReplacePlaceHolder(BlockBreakEvent e, String cmd, PlayerTemplate pt) {
+
+        return cmd.replace("%player_name%", e.getPlayer().getName())
+                .replace("%mined_blocks%", Integer.toString(pt.minedBlocks))
+                .replace("%mined_diamonds%", Integer.toString(pt.minedDiamonds))
+                .replace("%mined_emeralds%", Integer.toString(pt.minedEmeralds))
+                .replace("%mined_golds%", Integer.toString(pt.minedGolds))
+                .replace("%mined_irons%", Integer.toString(pt.minedIrons))
+                .replace("%mined_coals%", Integer.toString(pt.minedCoals))
+                .replace("%mined_after_join%", Integer.toString(pt.minedAfterJoin))
+                .replace("%progression_state%", pt.progresstionState.toString())
+                .replace("%block_just_mined%", e.getBlock().getType().toString().replace("_", " "));
+    }
+
+    public static List<String> ReplacePlaceHolder(List<String> cmds, PlayerTemplate pt) {
+        List<String> newCMD = new ArrayList<>();
+        for (String cmd : cmds) {
+            newCMD.add(cmd.replace("%player_name%", pt.playerName)
+                    .replace("%mined_blocks%", Integer.toString(pt.minedBlocks))
+                    .replace("%mined_diamonds%", Integer.toString(pt.minedDiamonds))
+                    .replace("%mined_emeralds%", Integer.toString(pt.minedEmeralds))
+                    .replace("%mined_golds%", Integer.toString(pt.minedGolds))
+                    .replace("%mined_irons%", Integer.toString(pt.minedIrons))
+                    .replace("%mined_coals%", Integer.toString(pt.minedCoals))
+                    .replace("%mined_after_join%", Integer.toString(pt.minedAfterJoin))
+                    .replace("%progression_state%", pt.progresstionState.toString()));
+        }
+        return newCMD;
+    }
+
+    public static String ReplacePlaceHolder(String cmd, PlayerTemplate pt) {
+
+        return cmd.replace("%player_name%", pt.playerName)
+                .replace("%mined_blocks%", Integer.toString(pt.minedBlocks))
+                .replace("%mined_diamonds%", Integer.toString(pt.minedDiamonds))
+                .replace("%mined_emeralds%", Integer.toString(pt.minedEmeralds))
+                .replace("%mined_golds%", Integer.toString(pt.minedGolds))
+                .replace("%mined_irons%", Integer.toString(pt.minedIrons))
+                .replace("%mined_coals%", Integer.toString(pt.minedCoals))
+                .replace("%mined_after_join%", Integer.toString(pt.minedAfterJoin))
+                .replace("%progression_state%", pt.progresstionState.toString());
     }
 }

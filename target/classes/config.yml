@@ -1,68 +1,66 @@
-#!Every reward name must be unique
-#
-#BlockToInventory: false | do you want the mined blocks drop straight to inventory?, set to true if you do, it might affect your
-#server performance but not much.
-#
-#[Shoudn't touch this]SavePlayerDataAfter: 0  | 0 means only save playerData when they leave or when you stop the server, if you wanna change it then
-#its better to set it more than 500, this will affect your server performance a lot if you set to small number.
-#
-#SpecificTools:
-#  - all [everything uses to mining blocks is accept]
-# remove all if you wanna add specific tool, you can add specific name like IRON_PICKAXE, GOLD_PICKAXE, or just PICKAXE for all type
-# of pickaxe
-#
-#ExceptBlocks:
-#  - none [everything block is accept]
-# you might wanna take a look at this to set a properly block value https://minecraft.fandom.com/wiki/Tag#Blocks
-#
-#Rewards:
-#randomCommand: true |  if you have more than 1 command, you can random and get 1, or you can set it to false and it'll give
-#the player all the commands
-#
 #Available PlaceHolders:
 #  - %player_name% | get player's name
 #  - %mined_after_join% | get the total blocks player have mined after join the server
 #  - %mined_blocks% | get player's total mined blocks
 #  - %mined_diamonds% | get player's total mined diamonds blocks
 #  - %mined_emeralds% | get player's total mined emeradls blocks
-#  - %mined_golds%" | get player's total mined golds blocks
+#  - %mined_golds% | get player's total mined golds blocks
 #  - %mined_irons% | get player's total mined irons blocks
 #  - %mined_coals% | get player's total mined coals blocks
+#  - %block_just_mined% | get the block that player just mined
+#  - %progression_state% | display the player progress to get reward as percent
+
+MySQL:
+  enableMySQL: false
+  username: "root"
+  password: ""
+  port: 3306
+  databaseName: ""
 
 HelpMessage:
-  - "/blockbreakreward reload | to reload the plugin"
-  - "/blockbreakreward help | show helps"
-ReloadMessage: "Block Break Reward is reloaded, have fun"
-NeedPermission: "You don't have permission to do use this command"
-InventoryIsFullWarning: "[BlockBreakReward] your inventory is full"
+  - "§e/blockbreakreward reload | to reload the plugin"
+  - "§e/blockbreakreward leaderboard | to show top players"
+  - "§e/blockbreakreward YamltoMySQLDatabase | transfer yaml files to database"
+  - "§e/blockbreakreward help | show helps"
+ReloadMessage: "§eBlock Break Reward is reloaded, have fun"
+NeedPermission: "§eYou don't have permission to do use this command"
+InventoryFullWarning: "§c[BlockBreakReward] your inventory is full"
 
-EnableFullInventoryWarning: false
+EnableFullInventoryWarning: true
+
 BlockToInventory: false
 
+ProgressActionBar: true
+ActionBarTemplate: "TOTAL: %mined_blocks% | PROGRESS: %progression_state%%"
+ProgressReachSound: entity_player_levelup
+
 SavePlayerDataAfter: 0
+
 ExceptBlocks:
   - none
+
 SpecificTools:
   - all
+
 Rewards:
   Reward1:
     permission: blockbreakreward.default
     blockNeedToMine: 1000
+    randomCommand: true
     commands:
       - "give %player_name% 500"
-    randomCommand: false
   Reward2:
     permission: blockbreakreward.opplayer
     blockNeedToMine: 5000000
+    randomCommand: true
     commands:
       - "op %player_name%"
       - "eco give %player_name% 500"
       - "ban %player_name% mining too much blocks %mined_blocks%"
-    randomCommand: false
   Reward3:
     permission: blockbreakreward.reward3
-    blockNeedToMine: 20
+    blockNeedToMine: 10
+    randomCommand: true
     commands:
       - "give %player_name% 20"
       - "kill %player_name%"
-    randomCommand: true
