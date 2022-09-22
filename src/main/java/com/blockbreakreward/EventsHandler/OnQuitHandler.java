@@ -1,4 +1,4 @@
-package com.blockbreakreward.handler;
+package com.blockbreakreward.EventsHandler;
 
 import java.util.UUID;
 
@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.blockbreakreward.Plugin;
 import com.blockbreakreward.MySQLConnection.MySQLHandler;
-import com.blockbreakreward.PlayerHandler.PlayerProcessor;
+import com.blockbreakreward.PlayerLoader.PlayerProcessor;
 
 public class OnQuitHandler implements Listener {
     Plugin plugin;

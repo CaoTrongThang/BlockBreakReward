@@ -1,4 +1,4 @@
-package com.blockbreakreward.handler;
+package com.blockbreakreward.EventsHandler;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import com.blockbreakreward.Plugin;
 import com.blockbreakreward.ConfigHandler.ConfigHandler;
 import com.blockbreakreward.MySQLConnection.MySQLHandler;
-import com.blockbreakreward.PlayerHandler.PlayerTemplate;
+import com.blockbreakreward.PlayerLoader.PlayerTemplate;
 
 public class OnJoinHandler implements Listener {
     Plugin plugin;

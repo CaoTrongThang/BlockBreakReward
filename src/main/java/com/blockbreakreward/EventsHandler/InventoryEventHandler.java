@@ -1,4 +1,4 @@
-package com.blockbreakreward.handler;
+package com.blockbreakreward.EventsHandler;
 
 import java.util.ArrayList;
 import java.util.List;

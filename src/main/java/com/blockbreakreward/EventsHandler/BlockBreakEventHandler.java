@@ -1,4 +1,4 @@
-package com.blockbreakreward.handler;
+package com.blockbreakreward.EventsHandler;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,9 +18,9 @@ import com.blockbreakreward.MyFunc;
 import com.blockbreakreward.Plugin;
 import com.blockbreakreward.ConfigHandler.ConfigHandler;
 import com.blockbreakreward.MySQLConnection.MySQLHandler;
-import com.blockbreakreward.PlayerHandler.PlayerProcessor;
-import com.blockbreakreward.PlayerHandler.PlayerTemplate;
-import com.blockbreakreward.RewardHandler.RewardTemplate;
+import com.blockbreakreward.PlayerLoader.PlayerProcessor;
+import com.blockbreakreward.PlayerLoader.PlayerTemplate;
+import com.blockbreakreward.RewardLoader.RewardTemplate;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;

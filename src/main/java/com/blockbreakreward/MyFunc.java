@@ -10,8 +10,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 
-import com.blockbreakreward.PlayerHandler.PlayerTemplate;
-import com.blockbreakreward.RewardHandler.RewardTemplate;
+import com.blockbreakreward.PlayerLoader.PlayerTemplate;
+import com.blockbreakreward.RewardLoader.RewardTemplate;
 
 import net.md_5.bungee.api.ChatColor;
 

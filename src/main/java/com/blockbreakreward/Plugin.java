@@ -18,16 +18,16 @@ import com.blockbreakreward.GUI.LeaderboardManager;
 import com.blockbreakreward.GUI.LeaderboardTemplate;
 import com.blockbreakreward.MySQLConnection.MySQLConnect;
 import com.blockbreakreward.MySQLConnection.MySQLHandler;
-import com.blockbreakreward.PlayerHandler.PlayerProcessor;
-import com.blockbreakreward.PlayerHandler.PlayerTemplate;
-import com.blockbreakreward.RewardHandler.RewardProcessor;
-import com.blockbreakreward.RewardHandler.RewardTemplate;
-import com.blockbreakreward.handler.BlockBreakEventHandler;
-import com.blockbreakreward.handler.CommandHandler;
-import com.blockbreakreward.handler.InventoryEventHandler;
-import com.blockbreakreward.handler.OnJoinHandler;
-import com.blockbreakreward.handler.OnQuitHandler;
-import com.blockbreakreward.handler.TabCompletion;
+import com.blockbreakreward.PlayerLoader.PlayerProcessor;
+import com.blockbreakreward.PlayerLoader.PlayerTemplate;
+import com.blockbreakreward.RewardLoader.RewardProcessor;
+import com.blockbreakreward.RewardLoader.RewardTemplate;
+import com.blockbreakreward.EventsHandler.BlockBreakEventHandler;
+import com.blockbreakreward.EventsHandler.CommandHandler;
+import com.blockbreakreward.EventsHandler.InventoryEventHandler;
+import com.blockbreakreward.EventsHandler.OnJoinHandler;
+import com.blockbreakreward.EventsHandler.OnQuitHandler;
+import com.blockbreakreward.EventsHandler.TabCompletion;
 
 import net.md_5.bungee.api.ChatColor;
 

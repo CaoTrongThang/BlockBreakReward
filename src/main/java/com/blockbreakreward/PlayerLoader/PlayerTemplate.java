@@ -1,4 +1,4 @@
-package com.blockbreakreward.PlayerHandler;
+package com.blockbreakreward.PlayerLoader;
 
 import org.bukkit.entity.Player;
 

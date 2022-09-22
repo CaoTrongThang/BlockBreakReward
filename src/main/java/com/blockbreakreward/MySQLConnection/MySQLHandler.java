@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 
 import com.blockbreakreward.MyFunc;
 import com.blockbreakreward.Plugin;
-import com.blockbreakreward.PlayerHandler.PlayerTemplate;
+import com.blockbreakreward.PlayerLoader.PlayerTemplate;
 
 import net.md_5.bungee.api.ChatColor;
 

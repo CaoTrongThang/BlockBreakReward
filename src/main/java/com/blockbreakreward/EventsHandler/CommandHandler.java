@@ -1,4 +1,4 @@
-package com.blockbreakreward.handler;
+package com.blockbreakreward.EventsHandler;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -12,9 +12,9 @@ import com.blockbreakreward.ConfigHandler.ConfigHandler;
 import com.blockbreakreward.GUI.LeaderboardManager;
 import com.blockbreakreward.GUI.LeaderboardTemplate;
 import com.blockbreakreward.MySQLConnection.MySQLHandler;
-import com.blockbreakreward.PlayerHandler.PlayerProcessor;
-import com.blockbreakreward.PlayerHandler.PlayerTemplate;
-import com.blockbreakreward.RewardHandler.RewardProcessor;
+import com.blockbreakreward.PlayerLoader.PlayerProcessor;
+import com.blockbreakreward.PlayerLoader.PlayerTemplate;
+import com.blockbreakreward.RewardLoader.RewardProcessor;
 
 import net.md_5.bungee.api.ChatColor;
 

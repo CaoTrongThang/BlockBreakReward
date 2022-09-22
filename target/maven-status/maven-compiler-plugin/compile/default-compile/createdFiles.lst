@@ -1,2 +1,2 @@
-com\blockbreakreward\RewardHandler\RewardTemplate.class
-com\blockbreakreward\PlayerHandler\PlayerTemplate.class
+com.blockbreakreward.RewardLoader.RewardTemplate.class
+com.blockbreakreward.PlayerLoader\PlayerTemplate.class

@@ -18,7 +18,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import com.blockbreakreward.MyFunc;
 import com.blockbreakreward.Plugin;
-import com.blockbreakreward.PlayerHandler.PlayerTemplate;
+import com.blockbreakreward.PlayerLoader.PlayerTemplate;
 
 public class LeaderboardManager {
     public static Inventory inv;
