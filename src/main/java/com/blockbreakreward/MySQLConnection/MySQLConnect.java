@@ -42,7 +42,7 @@ public class MySQLConnect {
             } catch (SQLException e) {
                 plugin.LOGGER.info(ChatColor.RED + "Unknown database " + ChatColor.BOLD
                         + ConfigHandler.GetMySQLDatabaseName()
-                        + " name, please check if its a connect database name, not table. Or maybe your password or username is wrong");
+                        + " name, please check if its a correct database name, not table. Or maybe your password or username is wrong");
 
             }
         }

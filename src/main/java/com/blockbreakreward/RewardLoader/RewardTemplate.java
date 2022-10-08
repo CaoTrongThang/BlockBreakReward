@@ -1,4 +1,4 @@
-package com.blockbreakreward.RewardHandler;
+package com.blockbreakreward.RewardLoader;
 
 import java.util.List;
 

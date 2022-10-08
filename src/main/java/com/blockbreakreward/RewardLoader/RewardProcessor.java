@@ -1,9 +1,7 @@
-package com.blockbreakreward.RewardHandler;
+package com.blockbreakreward.RewardLoader;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.bukkit.permissions.Permission;
 
 import com.blockbreakreward.Plugin;
 
